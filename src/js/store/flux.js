@@ -32,7 +32,8 @@ const getState = ({ getStore, getActions, setStore }) => {
   
       },
       createNewContact:()=>{
-
+        
+        
       },
       updateContact:()=>{
 
