@@ -9,7 +9,6 @@ import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
-import { ButtonContact } from "./component/buttoncontact";
 import { FormNewContact } from "./component/formAddNewContact";
 
 
@@ -24,7 +23,6 @@ const Layout = () => {
 			<BrowserRouter basename={basename}>
 				<ScrollToTop>
 					<Navbar />
-					<ButtonContact />
 					<Routes>
 						<Route path="/" element={<Home />} />
 						<Route path="/demo" element={<Demo />} />
