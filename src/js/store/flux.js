@@ -32,45 +32,72 @@ const getState = ({ getStore, getActions, setStore }) => {
   
       },
 
-      createNewContact: async({ fullName, phone, email, address}) => {
-        try {
-          const response = await fetch("https://playground.4geeks.com/contact/agendas/marian/contacts", {
+      createNewContact: async ({ fullName, phone, email, address }) => {
+        let resp = await fetch("https://playground.4geeks.com/contact/agendas/marian/contacts", {
             method: "POST",
             headers: {
-              "Content-Type":"aplication/json",
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({
+                name: fullName,
+                phone: phone,
+                email: email,
+                address: address
+            })
+        });
+        if (resp === 422) {
+        console.error("Error:", errorData.error || "Unknown server error"); 
+        }
+        if (resp.ok) {
+          const dataContacts = await resp.json();
+          console.log({ dataContacts });
+          setStore({ contacts: dataContacts.contacts }); 
+        }
+      },
+
+      updateContact: async (contactId, fullName, phone, email, address ) => { 
+        let resp = await fetch(`https://playground.4geeks.com/contact/agendas/marian/contacts/${contactId}`,{
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
             name: fullName,
             phone: phone,
             email: email,
             address: address
-          }),
+        })
         });
-        if (!response.ok) {
-        const errorData = await response.json();
+        if (resp === 422) {
         console.error("Error:", errorData.error || "Unknown server error"); 
-    
-        alert(`Error creating contact: ${errorData.error || "Unknown error"}`);
-        throw new Error("Server error creating contact"); 
         }
-    
-        const dataContacts = await response.json();
+        if (resp.ok) {
+          const dataContacts = await resp.json();
+          console.log({ dataContacts });
+          setStore({ contacts: dataContacts.contacts }); 
+        }
+      },
+      deleteContact:async ()=>{
+        let resp = await fetch("https://playground.4geeks.com/contact/agendas/marian/${contactid}",{
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+        }
+      });
+      if (resp.ok) {
+        const dataContacts = await resp.json();
+        console.log("Contacto borrado con éxito");
         console.log({ dataContacts });
         setStore({ contacts: dataContacts.contacts }); 
-    
-      } catch (error) {
-        console.error("Error creating contact:", error); 
-      }
-    },
-
-      updateContact:()=>{
-
-      },
-      deleteContact:()=>{
-        
-      }
+      let confirmar = confirm("Are you sure?");
+        if (confirmar) {
+          alert("Oh no!");
+        } else {
+          alert("Yes baby!");
+        }
     }
-	};
-};
-
+	}
+},
+}
+}
 export default getState;
