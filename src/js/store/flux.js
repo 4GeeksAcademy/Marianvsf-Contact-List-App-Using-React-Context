@@ -24,6 +24,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         });
         }
       
+        
         if (resp.ok) {
           let dataContacts = await resp.json();
           console.log( {dataContacts} )
@@ -71,32 +72,28 @@ const getState = ({ getStore, getActions, setStore }) => {
         if (resp === 422) {
         console.error("Error:", errorData.error || "Unknown server error"); 
         }
-        if (resp.ok) {
+        if (resp === 200) {
           const dataContacts = await resp.json();
           console.log({ dataContacts });
           setStore({ contacts: dataContacts.contacts }); 
         }
       },
-      deleteContact:async ()=>{
-        let resp = await fetch("https://playground.4geeks.com/contact/agendas/marian/${contactid}",{
+      deleteContact:async (id)=>{
+        let resp = await fetch(`https://playground.4geeks.com/contact/agendas/marian/contacts/${id}`,{
           method: "DELETE",
           headers: {
-            "Content-Type": "application/json",
-        }
+              "Content-Type": "application/json",
+          }
       });
-      if (resp.ok) {
-        const dataContacts = await resp.json();
-        console.log("Contacto borrado con éxito");
-        console.log({ dataContacts });
-        setStore({ contacts: dataContacts.contacts }); 
-      let confirmar = confirm("Are you sure?");
-        if (confirmar) {
-          alert("Oh no!");
-        } else {
-          alert("Yes baby!");
-        }
-    }
-	}
+      if (resp.status === 404) {
+          console.log("No se puede eliminar el contacto")
+      }
+      if (resp.status === 200) {
+          let data = await resp.json();
+          console.log({ data });
+          setStore({contacts:data});
+      }
+  },
 },
 }
 }

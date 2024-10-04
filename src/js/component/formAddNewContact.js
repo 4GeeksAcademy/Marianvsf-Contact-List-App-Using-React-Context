@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, Component } from "react";
 import PropTypes from "prop-types";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
@@ -109,7 +109,7 @@ export const FormNewContact = () => {
             onChange={(e) => setAddress(e.target.value)}
             />
         </div>
-        <button type="submit" className="btn btn-primary w-100">Submit</button>
+        <button type="submit" className="btn btn-primary w-100">Save</button>
         <Link to="/home">
           <button type="button" className="btn btn-link p-0">or get back to contacts</button>
         </Link>
