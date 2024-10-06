@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, Component } from "react";
 import PropTypes from "prop-types";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 
@@ -12,6 +12,7 @@ export const FormNewContact = () => {
   const [address, setAddress] = useState("");
   const [currentContact, setCurrentContact] = useState()
   const { contactId } = useParams();
+  const navigate = useNavigate();
   console.log(contactId ? contactId : "no hay contacto")
   
   useEffect(() =>{
@@ -24,7 +25,7 @@ export const FormNewContact = () => {
         setAddress(contacto.address)
         console.log("funciona")
     }
-    }, [contactId])
+    }, [contactId, store.contacts])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,6 +45,7 @@ export const FormNewContact = () => {
         setAddress("")
     }
     await actions.getContactsList()
+    navigate("/home");
     };
     return (
       <div className="container">

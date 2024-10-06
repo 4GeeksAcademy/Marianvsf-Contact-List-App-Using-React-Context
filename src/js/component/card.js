@@ -58,11 +58,11 @@ export const ContactCard = () => {
                         </ul>
                     </div>
                     <div className="col-md-4">
-                        <div className="d-flex justify-content-end">
+                        <div className="d-flex justify-content-end icons">
                         <Link to={`/updateContact/${contact.id}`}>
-                                <FontAwesomeIcon icon={faPencilAlt} className="me-5 icon" onClick={() => handleEdit(contact.id)} />
+                                <FontAwesomeIcon icon={faPencilAlt} className="icon2 me-3" onClick={() => handleEdit(contact.id)} />
                         </Link>
-                                <FontAwesomeIcon icon={faTrashAlt} className="icon" onClick={() => openModal(contact.id)}/>
+                                <FontAwesomeIcon icon={faTrashAlt} className="icon2 icon2-1" onClick={() => openModal(contact.id)}/>
                         </div>
                     </div>
                 </div>
