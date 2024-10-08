@@ -34,10 +34,10 @@ export const FormNewContact = () => {
       return 
     }
     if (contactId) {
-      await actions.updateContact(contactId, fullName, email, phone, address );
+      await actions.updateContact(contactId, fullName, phone, email, address );
     }
     else {
-      await actions.createNewContact({ fullName, email, phone, address });
+      await actions.createNewContact({ fullName, phone, email, address });
         setCurrentContact("")
         setfullName("")
         setEmail("")
